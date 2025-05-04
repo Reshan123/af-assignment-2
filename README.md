@@ -1,5 +1,8 @@
 # 🌎 GlobeGuide - Your Window to the World
 
+## 🔗 Live Demo
+Experience GlobeGuide live: [https://af-assignment-2-ik10e6k8o-reshan-gomis-projects-f3d6b712.vercel.app/](https://af-assignment-2-ik10e6k8o-reshan-gomis-projects-f3d6b712.vercel.app/)
+
 ## 📖 Overview
 GlobeGuide is an elegant, modern web application crafted with React, TypeScript, and Firebase. Embark on a journey to explore countries worldwide, discovering rich details about their flags, populations, regions, and cultural heritage.
 
