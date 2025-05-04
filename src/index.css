@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  /* Global Dark Ops Theme */
+  --color-background: #0F1117;
+  --color-surface: #1A1D24;
+  --color-primary: #3B82F6;
+  --color-accent: #8B5CF6;
+  --color-text-primary: #E5E7EB;
+  --color-text-muted: #9CA3AF;
+  --color-divider: #2C2F36;
+  --color-success: #10B981;
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+  
+  color-scheme: light dark;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'],
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Add hover effect for interactive elements */
+button:hover,
+[type='button']:hover,
+[type='reset']:hover,
+[type='submit']:hover {
+    cursor: pointer;
+}
+  
