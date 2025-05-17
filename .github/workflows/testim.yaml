@@ -1,10 +1,10 @@
 name: Run Testim Tests
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
-  workflow_dispatch:
 
 jobs:
   testim:
@@ -19,12 +19,12 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install Chrome
+      - name: Install Google Chrome
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget gnupg
+          sudo apt-get install -y wget gnupg curl
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
@@ -35,10 +35,13 @@ jobs:
         env:
           TESTIM_TOKEN: ${{ secrets.TESTIM_TOKEN }}
         run: |
+          CHROME_PATH=$(which google-chrome)
+          echo "Chrome binary is at: $CHROME_PATH"
           testim \
             --token "Kr5tvpz5sJ6cSqmGiKtd6h1BFdJbwKkVVaWvGLh4MMvWA1lbFv" \
             --project "Uq2fzwleotK72p7DjH69" \
             --use-local-chrome-driver \
+            --chrome-binary-location "$CHROME_PATH" \
             --user "LS2Eea9bTSs4XLpbTJea" \
             --mode "extension" \
             --branch "master" \
