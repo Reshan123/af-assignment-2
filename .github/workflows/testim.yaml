@@ -19,29 +19,41 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install Google Chrome
+      - name: Install Google Chrome and ChromeDriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget gnupg curl
+          sudo apt-get install -y wget unzip curl
+
+          # Install Chrome
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
           sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
+
+          # Get Chrome version
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
+          echo "Chrome version: $CHROME_VERSION"
+
+          # Download matching ChromeDriver
+          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+          wget -O chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
+          unzip chromedriver.zip
+          sudo mv chromedriver /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
+          chromedriver --version
 
       - name: Install Testim CLI
         run: npm install -g @testim/testim-cli
 
       - name: Run Testim Tests
         env:
-          TESTIM_TOKEN: ${{ secrets.TESTIM_TOKEN }}
+          TESTIM_TOKEN: Kr5tvpz5sJ6cSqmGiKtd6h1BFdJbwKkVVaWvGLh4MMvWA1lbFv
         run: |
-          CHROME_PATH=$(which google-chrome)
-          echo "Chrome binary is at: $CHROME_PATH"
           testim \
-            --token "Kr5tvpz5sJ6cSqmGiKtd6h1BFdJbwKkVVaWvGLh4MMvWA1lbFv" \
+            --token "$TESTIM_TOKEN" \
             --project "Uq2fzwleotK72p7DjH69" \
             --use-local-chrome-driver \
-            --chrome-binary-location "$CHROME_PATH" \
+            --chrome-binary-location "/usr/bin/google-chrome" \
             --user "LS2Eea9bTSs4XLpbTJea" \
             --mode "extension" \
             --branch "master" \
