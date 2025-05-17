@@ -1,24 +1,34 @@
-name: Run Testim Tests After Deploy
+name: Run Testim Tests
 
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
-  test:
+  testim:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install Testim CLI
-      run: npm install -g @testim/testim-cli
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Wait for Vercel Deployment
-      run: |
-        echo "Waiting 60 seconds for Vercel to finish deployment..."
-        sleep 60  # Adjust if your deploy takes longer or shorter
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # adjust as needed
 
-    - name: Run Testim Tests
-      run: |
-          testim --token "Kr5tvpz5sJ6cSqmGiKtd6h1BFdJbwKkVVaWvGLh4MMvWA1lbFv" --project "Uq2fzwleotK72p7DjH69" --grid "Testim-Grid" --mode "extension" --branch "master" --label "test-run"
+      - name: Install Testim CLI
+        run: npm install -g @testim/testim-cli
+
+      - name: Run Testim tests
+        run: |
+          testim \
+            --token "${{ secrets.TESTIM_TOKEN }}" \
+            --project "Uq2fzwleotK72p7DjH69" \
+            --use-local-chrome-driver \
+            --user "LS2Eea9bTSs4XLpbTJea" \
+            --mode "extension" \
+            --branch "master" \
+            --label "test-run"
