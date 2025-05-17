@@ -25,7 +25,7 @@ jobs:
       - name: Run Testim tests
         run: |
           testim \
-            --token "${{ secrets.TESTIM_TOKEN }}" \
+            --token "Kr5tvpz5sJ6cSqmGiKtd6h1BFdJbwKkVVaWvGLh4MMvWA1lbFv" \
             --project "Uq2fzwleotK72p7DjH69" \
             --use-local-chrome-driver \
             --user "LS2Eea9bTSs4XLpbTJea" \
