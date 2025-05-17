@@ -1,10 +1,5 @@
-name: Run Testim Tests After Deploy
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+name: Testim E2E
+on: [push]
 
 jobs:
     run-testimio-cli:
@@ -17,4 +12,3 @@ jobs:
                 # You can also change 'lts' to any supported LTS Node.js version.
             - run: npm install -g @testim/testim-cli
             - run: testim --token "Kr5tvpz5sJ6cSqmGiKtd6h1BFdJbwKkVVaWvGLh4MMvWA1lbFv" --project "Uq2fzwleotK72p7DjH69" --grid "Testim-Grid" --mode "extension" --branch "master"
-  
